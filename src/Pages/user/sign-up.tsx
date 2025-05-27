@@ -1,15 +1,16 @@
-import { useState } from "react";
 import Input from "../../components/input";
 import Button from "../../components/button";
+import { useForm } from "react-hook-form";
 
-export default function SignUp () {
-        const [email, setEmail] = useState<string>("");
-        const [password, setPassword] = useState<string>("");
-        const [name, setName] = useState<string>("");
+export default function SignUp() {
 
-        function handleSignUp () {
-            alert("button clicked");
+    const { register, formState: { errors }, handleSubmit } = useForm({
+        defaultValues: {
+            name: "",
+            email: "",
+            password: ""
         }
+    });
 
     return (
         <div className="bg-[#F5F8FF] min-h-screen flex justify-center items-center">
@@ -19,30 +20,45 @@ export default function SignUp () {
                     <p className="text-[#6B7280] text-center font-medium">Create an acccount to explore the website</p>
                 </div>
                 <div className="flex flex-col gap-3">
-                <Input
+                    <Input
                         required={true}
-                        onChange={(e) => setName(e.target.value)}
+                        {...register("name",
+                            {
+                                required: "Name is required",
+                                minLength: { value: 3, message: "Name should be a minimum of 3 letters" }
+                            })
+                        }
                         placeholder="Enter name"
                         type="text"
                         className="sm:py-2 py-1 placeholder:text-lg"
-                        value={name} />
+                        error={errors.name?.message}
+                    />
                     <Input
                         required={true}
-                        onChange={(e) => setEmail(e.target.value)}
+                        {...register("email", { required: "Email is required" })}
                         placeholder="Enter email"
                         type="email"
-                        className="sm:py-2 py-1 placeholder:text-lg "
-                        value={email} />
+                        className="sm:py-2 py-1 placeholder:text-lg"
+                        error={errors.email?.message}
+                    />
                     <Input
                         required={true}
-                        onChange={(e) => setPassword(e.target.value)}
+                        {...register("password",
+                            {
+                                required: "Password is required",
+                                minLength: { value: 6, message: "Password should be a minimum of 6 letters" }
+                            }
+                        )}
                         placeholder="Enter password"
-                        type="email"
+                        type="text"
                         className="sm:py-2 py-1 placeholder:text-lg"
-                        value={password} />
+                        error={errors.password?.message}
+                    />
                     <Button
                         className="bg-[#0057FF] sm:py-4 py-2"
-                        onClick={() => handleSignUp}
+                        onClick={handleSubmit((data) => {
+                            alert(JSON.stringify(data));
+                        })}
                     >Sign Up</Button>
                 </div>
                 <div className="flex justify-center gap-2">
