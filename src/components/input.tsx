@@ -10,7 +10,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps> (({
+const Input = React.forwardRef<HTMLInputElement, InputProps>(({
   className,
   placeholder,
   type,
@@ -31,7 +31,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps> (({
       >
         {icon && <span className="text-gray-500">{icon}</span>}
         <input
-        ref={ref}
+          ref={ref}
           className={`w-full outline-none text-sm text-gray-800 placeholder-gray-400 bg-transparent ${className}`}
           type={type}
           placeholder={placeholder}
