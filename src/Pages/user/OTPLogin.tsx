@@ -15,7 +15,7 @@ export default function OTPLogin() {
         newArr[index] = newValue.slice(-1);
         setInputArr(newArr);
 
-        newValue && refArr.current[index+1]?.focus()
+        newValue && refArr.current[index+1]?.focus();
     }
 
     function handleKeyDown(e, index) {
